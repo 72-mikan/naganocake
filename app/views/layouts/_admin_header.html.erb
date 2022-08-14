@@ -1,0 +1,27 @@
+<header>
+  <%= link_to "NaganoCake", root_path %>
+  <% if admin_signed_in? %>
+    <li>
+      <%= link_to "商品一覧", root_path %>
+    </li>
+    <li>
+      <%= link_to "会員一覧", root_path %>
+    </li>
+    <li>
+      <%= link_to "注文履歴一覧", root_path %>
+    </li>
+    <li>
+      <%= link_to "ジャンル一覧", root_path %>
+    </li>
+    <li>
+      <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+    </li>
+  <% else %>
+    <li>
+      <%= link_to "商品一覧", root_path %>
+    </li>
+    <li>
+      <%= link_to "ログイン", new_admin_session_path %>
+    </li>
+  <% end %>
+</header>
