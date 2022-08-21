@@ -1,9 +1,23 @@
 # frozen_string_literal: true
 
 class Customer::SessionsController < Devise::SessionsController
+  before_action :customer_state, only: [:create]
   
   def after_sign_in_path_for(resource)
     my_page_path
+  end
+  
+  protected
+  
+  def customer_state
+    @customer = Customer.find_by(email: params[:customer][:email])
+    # 処理の終了
+    return if !@customer
+    if @customer.valid_password?(params[:customer][:password])
+      if @customer.is_deleted != false
+        redirect_to new_customer_registration_path
+      end
+    end
   end
   
   
