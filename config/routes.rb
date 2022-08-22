@@ -6,12 +6,16 @@ Rails.application.routes.draw do
   get '/admin' => 'admin/homes#top'
   namespace :admin do
     resources :customers, only: [:index]
+    resources :genres, except: [:new, :delete]
+    resources :items, except: [:delete]
   end
   
   devise_for :customers, skip: [:passwords], controllers: {
     registrations: "customer/registrations",
     sessions: "customer/sessions"
   }
+  
+  root to: 'customer/homes#top'
   
   get '/customers/my_page' => 'customer/customers#show', as: :my_page
   get '/customers/information/edit' => 'customer/customers#edit', as: :my_information_edit
@@ -20,7 +24,9 @@ Rails.application.routes.draw do
   get '/customers/unsubscribe' => 'customer/customers#unsubscribe', as: :unsubscribe
   patch 'customer/withdraw' => 'customer/customers#withdraw', as: :withdraw
   
-  root to: 'customer/homes#top'
+  namespace :customer do
+    resources :items, only: [:index, :show]
+  end
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
