@@ -14,9 +14,11 @@
           <% @items.each do |item| %>
             <% if item.is_active == true %>
               <div class="col-md-3", style="margin: 5px">
-                <p><%= image_tag item.get_image(200,100) %></p>
-                <p><%= item.name %></p>
-                <p>￥<%= (item.price * @tax).round %></p>
+                <%= link_to customer_item_path(item.id) do %>
+                  <%= image_tag item.get_image(200,100) %>
+                <% end %>
+                <p><%= link_to item.name, customer_item_path(item.id) %></p>
+                <p>￥<%= item.with_tax_price %></p>
               </div>
             <% end %>
           <% end %>

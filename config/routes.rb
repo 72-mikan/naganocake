@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get '/admin' => 'admin/homes#top'
   namespace :admin do
     resources :customers, only: [:index]
-    resources :genres, except: [:new, :delete]
-    resources :items, except: [:delete]
+    resources :genres, except: [:new, :destroy]
+    resources :items, except: [:destroy]
   end
   
   devise_for :customers, skip: [:passwords], controllers: {
@@ -26,7 +26,10 @@ Rails.application.routes.draw do
   
   namespace :customer do
     resources :items, only: [:index, :show]
+    resources :cart_items, except: [:new, :show, :edit]
   end
+  
+  delete '/customer/cart_items' => 'customer/cart_items#destroy_all', as: :customer_cart_item_destroy
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
