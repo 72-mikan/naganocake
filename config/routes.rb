@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   namespace :customer do
     resources :items, only: [:index, :show]
     resources :cart_items, except: [:new, :show, :edit]
+    resources :addresses, except: [:new, :show]
   end
   
   delete '/customer/cart_items' => 'customer/cart_items#destroy_all', as: :customer_cart_item_destroy
