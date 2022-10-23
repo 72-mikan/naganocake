@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :customers, only: [:index]
     resources :genres, except: [:new, :destroy]
     resources :items, except: [:destroy]
+    resources :orders, only: [:index, :show, :update]
+    resources :order_details, only: [:update]
   end
   
   devise_for :customers, skip: [:passwords], controllers: {
@@ -24,10 +26,15 @@ Rails.application.routes.draw do
   get '/customers/unsubscribe' => 'customer/customers#unsubscribe', as: :unsubscribe
   patch 'customer/withdraw' => 'customer/customers#withdraw', as: :withdraw
   
+  
   namespace :customer do
     resources :items, only: [:index, :show]
     resources :cart_items, except: [:new, :show, :edit]
     resources :addresses, except: [:new, :show]
+    
+    resources :orders, except: [:edit, :update, :destroy]
+    post '/order/confirm' => 'orders#confirm'
+    get '/order/complete' => 'orders#complete'
   end
   
   delete '/customer/cart_items' => 'customer/cart_items#destroy_all', as: :customer_cart_item_destroy
