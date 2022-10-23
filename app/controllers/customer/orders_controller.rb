@@ -10,7 +10,7 @@ class Customer::OrdersController < ApplicationController
     @customer = current_customer
     
     select_payment_method = params[:order][:payment_method]
-    if select_payment_method != '0' && select_payment_method != '1'
+    if select_payment_method != 'credit_card' && select_payment_method != 'transfer'
       render :new
       return
     end
