@@ -3,6 +3,9 @@ class Customer::OrdersController < ApplicationController
   def new
     @order = Order.new
     @customer = current_customer
+    if !@current_customer.cart_items.exists?
+      redirect_to customer_items_path
+    end
   end
   
   def confirm
