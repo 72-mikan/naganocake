@@ -38,4 +38,16 @@
       </div>
     </div>
   </nav>
+  
+  <div class="container">
+    <div class="row">
+      <div class="">
+        <%= form_with url: admin_items_path, method: :get do |f| %>
+          <%= f.text_field :item_name %>
+          <%= f.submit '検索' %>
+        <% end %>
+      </div>
+    </div>
+    
+  </div>
 </header>
