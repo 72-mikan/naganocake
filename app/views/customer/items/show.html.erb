@@ -4,6 +4,9 @@
   <div class="row" style="padding-top: 30px">
     <div class="col-md-3">
       <h2>ジャンル検索</h2>
+      <% @genre.each do |genre| %>
+        <%= link_to genre.name, customer_items_path(genre_id: genre.id) %></br>
+      <% end %>
     </div>
     
     <div class="col-md-5">
